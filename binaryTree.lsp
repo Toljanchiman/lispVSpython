@@ -1,4 +1,10 @@
+
 ;https://benchmarksgame-team.pages.debian.net/benchmarksgame/program/binarytrees-sbcl-3.html
+;Теоретическая оценка временной сложности алгоритма составляет O(2^n) - экспоненциальное время.
+
+
+;/******** начало алгоритма ************/
+
 (setf sb-ext:*evaluator-mode* :interpret)
 ;(declaim (sb-ext:muffle-conditions cl:warning))
 ;(declaim (sb-ext:muffle-conditions cl:style-warning))
@@ -8,14 +14,6 @@
 ;(DEFVAR min-depth 4 "Minimal depth of the binary tree.")
 (defparameter num-workers 4 "Number of concurrent workers.")
 ;(DEFVAR num-workers 4 "Number of concurrent workers.")
-
-;выполнить код в файле, в cmd
-;sbcl --dynamic-space-size 8192 (load "binaryTree.lsp")
-;sbcl --noinform --disable-ldb --end-runtime-options --script "binaryTree.lsp"
-;Код можно скомпилировать в байт-код и загружать его быстрее '(load "test.fasl")'
-;sbcl --noinform --disable-ldb --end-runtime-options --script "lc.lsp"
-;(require :sb-concurrency)(load (compile-file "binaryTree.lsp" ))
-;sbcl --noinform --disable-ldb --end-runtime-options --load "binaryTree.fasl"
 
 (require :sb-concurrency)
 
@@ -84,4 +82,15 @@ branches are represented by a cons cell."
 ;(binary-trees-upto-size 21)
 ;(main)
 (quit)
-;(load (compile-file "binaryTree.lsp" ))
+
+;/******** конец алгоритма ************/
+
+
+;загрузить выполнить код из файла
+;(load "binaryTree.lsp")
+;загрузить и выполнить код из файла, через cmd
+;sbcl --dynamic-space-size 8192 (load "binaryTree.lsp")
+;sbcl --noinform --disable-ldb --end-runtime-options --script "binaryTree.lsp"
+;скомпилировать в байт-код и загрузить быстрее '(load "test.fasl")'
+;(require :sb-concurrency)(load (compile-file "binaryTree.lsp" ))
+;sbcl --noinform --disable-ldb --end-runtime-options --load "binaryTree.fasl"
