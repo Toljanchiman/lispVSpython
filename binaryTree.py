@@ -1,6 +1,6 @@
 
 #https://benchmarksgame-team.pages.debian.net/benchmarksgame/program/binarytrees-python3-3.html
-;Теоретическая оценка временной сложности алгоритма составляет O(2^n) - экспоненциальное время.
+#Теоретическая оценка временной сложности алгоритма составляет O(2^n) - экспоненциальное время.
 
 from concurrent.futures import ProcessPoolExecutor as PoolExecutor
 from multiprocessing import cpu_count
