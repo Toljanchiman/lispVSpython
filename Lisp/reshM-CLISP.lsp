@@ -1,13 +1,13 @@
-(declaim (sb-ext:muffle-conditions cl:warning))
-(declaim (sb-ext:muffle-conditions cl:style-warning))
-;https://www.tutorialspoint.com/execute_lisp_online.php
 ;https://rextester.com/l/common_lisp_online_compiler
-;(load "reshM.lsp")
-;(Решение1 '(<Spd2> (<Accl> 0.3) (<Time> 20) (<Spd1> 4)) Механика) ответ 10.0
-;(Решение '(<Spd2> <Accl> <Time> <Spd1>) Механика) ответ (f1 <Spd1> <Accl> <Time>)
+;(load "reshM-CLISP.lsp")
+;(declaim (sb-ext:muffle-conditions cl:warning))
+;(declaim (sb-ext:muffle-conditions cl:style-warning))
 
+
+; ******** РќРђР§РђР›Рћ РђР›Р“РћР РРўРњРђ ******** ;
+
+;#||#
 (defun f1 (x y z) (+ x (* y z)))
-#|
 (defun f2 (x y z) (SQRT (+ (* 2 x y) (* z z))))
 (defun f3 (x y z) (- x (* y z)))
 (defun f4 (x y z) (- (/ x y) (* 0.5 y z)))
@@ -18,18 +18,16 @@
 (defun f9 (x y z) (/ (- (SQRT (+ (* x x) (* 2 y z))) x) y))
 (defun f10 (x y z) (/ (* 2 (- x (* y z))) (* z z)))
 (defun f11 (x y) (SQRT (/ (* 2 x) y)))
-
 (defun f13 (x y z) (/ (/ x y) z))
 (defun f14 (x y) (/ (* 2 x) (* y y)))
 (defun f15 (x y z) (* x y z))
 (defun f16 (x y) (* 0.5 x y y))
-|#
 (defun f12 (x y) (/ x y))
 (defun f17 (x y z) (+ (- x y) z))
 (defun f18 (x y) (x y) (* x y))
+;#||#
 
-;(Решение '(<Spd2> <Accl> <Time> <Spd1>) Механика) ответ (f1 <Spd1> <Accl> <Time>)
-(defvar Механика '(((f1 3) (f2 3) (f3 3) (f4 3) (f5 3) (f6 3) (f7 3) (f8 3) (f9 3) (f10 3) (f11 2) (f12 2) (f13 3) (f14 2) (f15 3) (f16 2) (f17 3) (f18 2)) (
+(defvar РњРµС…Р°РЅРёРєР° '(((f1 3) (f2 3) (f3 3) (f4 3) (f5 3) (f6 3) (f7 3) (f8 3) (f9 3) (f10 3) (f11 2) (f12 2) (f13 3) (f14 2) (f15 3) (f16 2) (f17 3) (f18 2)) (
 (<Spd2> (f1 <Spd1> <Accl> <Time>) (f2 <Accl> <Dist> <Spd1>) (f11 <KinEn2> <Mass>)) 
 (<Spd1> (f3 <Spd2> <Accl> <Time>) (f4 <Dist> <Time> <Accl>) (f5 <Spd2> <Accl> <Dist>) (f11 <KinEn1> <Mass>)) 
 (<Dist> (f6 <Spd1> <Time> <Accl>) (f7 <Spd2> <Spd1> <Accl>) (f12 <OpPull> <FrPull>) (f12 <OpFric> <FrFric>)) 
@@ -46,7 +44,7 @@
 )))
 
 ;#|
-;(defun fact (x) (COND ((MINUSP x) (RAISEERROR "Аргумент FACT отрицателен")) ((EQ x 0) 1) (T (TIMES x (fact (DIFFERENCE x 1))))))
+;(defun fact (x) (COND ((MINUSP x) (RAISEERROR "РђСЂРіСѓРјРµРЅС‚ FACT РѕС‚СЂРёС†Р°С‚РµР»РµРЅ")) ((EQ x 0) 1) (T (TIMES x (fact (DIFFERENCE x 1))))))
 (defun copy (x) (COND ((ATOM x) x) (T (CONS (copy (CAR x)) (copy (CDR x))))))
 (defun appendd (x y) (COND ((NULL x) y) (T (CONS (CAR x) (appendd (CDR x) y)))))
 (defun equall (x y) (COND ((ATOM x) (EQ x y)) ((ATOM y) NIL) ((equall (CAR x) (CAR y)) (equall (CDR x) (CDR y))) (T NIL)))
@@ -136,7 +134,7 @@
 (defun flag (L i)(PROG (u) a (COND ((NULL L) (RETURN NIL))) (SETQ u (SPROPL (CAR L))) (COND ((NOT (memberr i u)) (SPROPL (CAR L) (CONS i u)))) (SETQ L (CDR L)) (GO a)))
 (defun remflag (L i)(PROG (u v) a (COND ((NULL L) (RETURN NIL))) (SETQ u (CONS NIL (SPROPL (CAR L)))) (SETQ v u) b (COND ((NULL (CDR v)) (GO d)) ((EQ (CADR v) i) (GO c))) (SETQ v (CDR v)) (GO b) c (RPLACD v (CDDR v)) (GO b) d (SPROPL (CAR L) (CDR u)) (SETQ L (CDR L)) (GO a)))
 
-(defun alert ()(PROG NIL (TERPRI) (PRINT "Индикатор не найден!") (TERPRI)))
+(defun alert ()(PROG NIL (TERPRI) (PRINT "РРЅРґРёРєР°С‚РѕСЂ РЅРµ РЅР°Р№РґРµРЅ!") (TERPRI)))
 
 ;(defmacro for ( LAMBDA (i iBeg iEnd body) ( `(PROG (, i) (SETQ , i , iBeg) $loop , @body (SETQ , i (ADD1 , i)) (COND ((<= , i , iEnd) (GO $loop))) (RETURN , iEnd)))) )
 
@@ -163,365 +161,158 @@
 (defun prlist (x)(COND ((NULL x) NIL) (T (PROG NIL (PRINTSLINE (CAR x)) (prlist (CDR x))))))
 (defun chk1p (x)(PROG (hd tl c) (SETQ c x) LOOP (SETQ hd (CAR c)) (SETQ tl (CDR c)) (COND ((NOT (ATOM hd)) (RETURN NIL))) (COND ((NULL tl) (RETURN T))) (SETQ c tl) (GO LOOP)))
 (defun weight (x)(COND ((EQ x (QUOTE +)) 1) ((EQ x (QUOTE -)) 1) ((EQ x (QUOTE *)) 2) ((EQ x (QUOTE \\)) 2) ((EQ x (QUOTE /)) 2) ((EQ x (QUOTE ^)) 3) (T 5)))
-(defun opcode (op)(COND ((EQ op (QUOTE +)) (QUOTE PLUS)) ((EQ op (QUOTE -)) (QUOTE DIFFERENCE)) ((EQ op (QUOTE *)) (QUOTE TIMES)) ((EQ op (QUOTE \\)) (QUOTE QUOTIENT)) ((EQ op (QUOTE /)) (QUOTE DIVIDE)) ((EQ op (QUOTE ^)) (QUOTE EXPT)) (T (RAISEERROR (STRCAT "Неверен код операции " (OUTPUT op))))))
+(defun opcode (op)(COND ((EQ op (QUOTE +)) (QUOTE PLUS)) ((EQ op (QUOTE -)) (QUOTE DIFFERENCE)) ((EQ op (QUOTE *)) (QUOTE TIMES)) ((EQ op (QUOTE \\)) (QUOTE QUOTIENT)) ((EQ op (QUOTE /)) (QUOTE DIVIDE)) ((EQ op (QUOTE ^)) (QUOTE EXPT)) (T (RAISEERROR (STRCAT "РќРµРІРµСЂРµРЅ РєРѕРґ РѕРїРµСЂР°С†РёРё " (OUTPUT op))))))
 (defun inf-aux (ae operators operands)(inf-iter (CDR ae) operators (CONS (CAR ae) operands)))
 (defun inf-iter (ae operators operands)(PROG NIL (COND ((AND (NULL ae) (NULL operators)) (RETURN (CAR operands)))) (COND ((AND (NOT (NULL ae)) (OR (NULL operators) (GREATERP (weight (CAR ae)) (weight (CAR operators))))) (RETURN (inf-aux (CDR ae) (CONS (CAR ae) operators) operands)))) (RETURN (inf-iter ae (CDR operators) (CONS (LIST (opcode (CAR operators)) (CADR operands) (CAR operands)) (CDDR operands))))))
 (defun inf2pref (x)(PROG (hd tl cc xx rr) (COND ((chk1p x) (RETURN (inf-aux x NIL NIL)))) (SETQ rr NIL) (SETQ xx x) @loop (SETQ hd (CAR xx)) (SETQ tl (CDR xx)) (COND ((memb hd (QUOTE (SIN COS LOG EXP ATN ASN ACS SH CH SQRT SIGN))) (PROGN (SETQ rr (appendd rr (LIST (LIST hd (inf2pref (CAR tl)))))) (SETQ tl (CDR tl)))) ((ATOM hd) (SETQ rr (appendd rr (LIST hd)))) (T (SETQ rr (appendd rr (LIST (inf2pref hd)))))) (COND ((NULL tl) (RETURN (inf-aux rr NIL NIL)))) (SETQ xx tl) (GO @loop)))
-(defun выполнить (x)(COND ((eql x NIL) (prin1 "Функции не добавлены.")) (T (выполнить+ x NIL))))
-(defun выполнить+ (x w) (COND ((eql x NIL) (prin1 "Все функции добавлены.")) (T (выполнить+ (CDR x) (EVAL (CAR x))))))
-(defun ввести (x)(ввести+ x NIL))
-(defun ввести+ (x w)(COND ((eql (CDR x) NIL) (SET (CAR (CAR x)) (элемент (CAR x) 2))) (T (ввести+ (CDR x) (SET (CAR (CAR x)) (элемент (CAR x) 2))))))
+(defun РІС‹РїРѕР»РЅРёС‚СЊ (x)(COND ((eql x NIL) (prin1 "Р¤СѓРЅРєС†РёРё РЅРµ РґРѕР±Р°РІР»РµРЅС‹.")) (T (РІС‹РїРѕР»РЅРёС‚СЊ+ x NIL))))
+(defun РІС‹РїРѕР»РЅРёС‚СЊ+ (x w) (COND ((eql x NIL) (prin1 "Р’СЃРµ С„СѓРЅРєС†РёРё РґРѕР±Р°РІР»РµРЅС‹.")) (T (РІС‹РїРѕР»РЅРёС‚СЊ+ (CDR x) (EVAL (CAR x))))))
+(defun РІРІРµСЃС‚Рё (x)(РІРІРµСЃС‚Рё+ x NIL))
+(defun РІРІРµСЃС‚Рё+ (x w)(COND ((eql (CDR x) NIL) (SET (CAR (CAR x)) (СЌР»РµРјРµРЅС‚ (CAR x) 2))) (T (РІРІРµСЃС‚Рё+ (CDR x) (SET (CAR (CAR x)) (СЌР»РµРјРµРЅС‚ (CAR x) 2))))))
 ;|#
 
-;выбирает из списка x элемент, находящийся на позиции n
-(defun элемент (x n)(COND ((eql n 1) (CAR x)) (T (элемент (CDR x) (- n 1)))))
+;РІС‹Р±РёСЂР°РµС‚ РёР· СЃРїРёСЃРєР° x СЌР»РµРјРµРЅС‚, РЅР°С…РѕРґСЏС‰РёР№СЃСЏ РЅР° РїРѕР·РёС†РёРё n
+(defun СЌР»РµРјРµРЅС‚ (x n)(COND ((eql n 1) (CAR x)) (T (СЌР»РµРјРµРЅС‚ (CDR x) (- n 1)))))
 
-;соединяет два списка  x и  y  в один:
-(defun соед (x y)(COND ((eql x NIL) y) (T (CONS (CAR x) (соед (CDR x) y)))))
+;СЃРѕРµРґРёРЅСЏРµС‚ РґРІР° СЃРїРёСЃРєР°  x Рё  y  РІ РѕРґРёРЅ:
+(defun СЃРѕРµРґ (x y)(COND ((eql x NIL) y) (T (CONS (CAR x) (СЃРѕРµРґ (CDR x) y)))))
 
-;добавляет к списку  x элемент y:
-(defun добав (x y)(соед x (LIST y)))
+;РґРѕР±Р°РІР»СЏРµС‚ Рє СЃРїРёСЃРєСѓ  x СЌР»РµРјРµРЅС‚ y:
+(defun РґРѕР±Р°РІ (x y)(СЃРѕРµРґ x (LIST y)))
 
-;выделяет последний элемент списка  x:
-(defun послед (x)(COND ((eql (CDR x) NIL) (CAR x)) (T (послед (CDR x)))))
+;РІС‹РґРµР»СЏРµС‚ РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚ СЃРїРёСЃРєР°  x:
+(defun РїРѕСЃР»РµРґ (x)(COND ((eql (CDR x) NIL) (CAR x)) (T (РїРѕСЃР»РµРґ (CDR x)))))
 
-;добавляет элемент y к последнему элементу (обязательно подсписку) списка  x:
-(defun добав1 (x y)(добав (обрез x) (добав (послед x) y)))
+;РґРѕР±Р°РІР»СЏРµС‚ СЌР»РµРјРµРЅС‚ y Рє РїРѕСЃР»РµРґРЅРµРјСѓ СЌР»РµРјРµРЅС‚Сѓ (РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РїРѕРґСЃРїРёСЃРєСѓ) СЃРїРёСЃРєР°  x:
+(defun РґРѕР±Р°РІ1 (x y)(РґРѕР±Р°РІ (РѕР±СЂРµР· x) (РґРѕР±Р°РІ (РїРѕСЃР»РµРґ x) y)))
 
-;удаляет из списка  x последний элемент
-(defun обрез+ (x y)(COND ((eql (CDR x) NIL) y) (T (обрез+ (CDR x) (добав y (CAR x))))))
+;СѓРґР°Р»СЏРµС‚ РёР· СЃРїРёСЃРєР°  x РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
+(defun РѕР±СЂРµР·+ (x y)(COND ((eql (CDR x) NIL) y) (T (РѕР±СЂРµР·+ (CDR x) (РґРѕР±Р°РІ y (CAR x))))))
 
-;удаляет из списка  x последний элемент
-(defun обрез (x)(COND ((eql (CDR x) NIL) NIL) (T (обрез+ (CDR x) (LIST (CAR x))))))
+;СѓРґР°Р»СЏРµС‚ РёР· СЃРїРёСЃРєР°  x РїРѕСЃР»РµРґРЅРёР№ СЌР»РµРјРµРЅС‚
+(defun РѕР±СЂРµР· (x)(COND ((eql (CDR x) NIL) NIL) (T (РѕР±СЂРµР·+ (CDR x) (LIST (CAR x))))))
 
-;добавляет к списку  x  копию его последнего атома
-(defun дубл (x)(добав x (послед x)))
+;РґРѕР±Р°РІР»СЏРµС‚ Рє СЃРїРёСЃРєСѓ  x  РєРѕРїРёСЋ РµРіРѕ РїРѕСЃР»РµРґРЅРµРіРѕ Р°С‚РѕРјР°
+(defun РґСѓР±Р» (x)(РґРѕР±Р°РІ x (РїРѕСЃР»РµРґ x)))
 
-;вырезает из списка x n-1 первых элементов
-(defun начало (x n)(COND ((eql n 2) (LIST (CAR x))) ((eql n 1) NIL) (T (соед (LIST (CAR x)) (начало (CDR x) (- n 1))))))
+;РІС‹СЂРµР·Р°РµС‚ РёР· СЃРїРёСЃРєР° x n-1 РїРµСЂРІС‹С… СЌР»РµРјРµРЅС‚РѕРІ
+(defun РЅР°С‡Р°Р»Рѕ (x n)(COND ((eql n 2) (LIST (CAR x))) ((eql n 1) NIL) (T (СЃРѕРµРґ (LIST (CAR x)) (РЅР°С‡Р°Р»Рѕ (CDR x) (- n 1))))))
 
-;вырезает из списка x последние элементы, начиная с элемента n
-(defun конец (x n)(COND ((eql n 1) x) (T (конец (CDR x) (- n 1)))))
+;РІС‹СЂРµР·Р°РµС‚ РёР· СЃРїРёСЃРєР° x РїРѕСЃР»РµРґРЅРёРµ СЌР»РµРјРµРЅС‚С‹, РЅР°С‡РёРЅР°СЏ СЃ СЌР»РµРјРµРЅС‚Р° n
+(defun РєРѕРЅРµС† (x n)(COND ((eql n 1) x) (T (РєРѕРЅРµС† (CDR x) (- n 1)))))
 
-;вставляет атомы списка y  вместо n-го элемента списка x
-(defun замена (x y n)(соед (начало x n) (соед y (конец x (+ n 1)))))
+;РІСЃС‚Р°РІР»СЏРµС‚ Р°С‚РѕРјС‹ СЃРїРёСЃРєР° y  РІРјРµСЃС‚Рѕ n-РіРѕ СЌР»РµРјРµРЅС‚Р° СЃРїРёСЃРєР° x
+(defun Р·Р°РјРµРЅР° (x y n)(СЃРѕРµРґ (РЅР°С‡Р°Р»Рѕ x n) (СЃРѕРµРґ y (РєРѕРЅРµС† x (+ n 1)))))
 
 ;#|
-(defun вставка (x y n)(соед (начало x n) (CONS y (конец x n))))
-(defun вставка1 (x y n)(соед (начало x n) (CONS (добав (элемент x n) y) (конец x (+ n 1)))))
+(defun РІСЃС‚Р°РІРєР° (x y n)(СЃРѕРµРґ (РЅР°С‡Р°Р»Рѕ x n) (CONS y (РєРѕРЅРµС† x n))))
+(defun РІСЃС‚Р°РІРєР°1 (x y n)(СЃРѕРµРґ (РЅР°С‡Р°Р»Рѕ x n) (CONS (РґРѕР±Р°РІ (СЌР»РµРјРµРЅС‚ x n) y) (РєРѕРЅРµС† x (+ n 1)))))
 
-;выдает значение True если в списке x содержится элемент y
-(defun содерж (x y)(COND ((eql x NIL) NIL) ((eql y (CAR x)) T) (T (содерж (CDR x) y))))
+;РІС‹РґР°РµС‚ Р·РЅР°С‡РµРЅРёРµ True РµСЃР»Рё РІ СЃРїРёСЃРєРµ x СЃРѕРґРµСЂР¶РёС‚СЃСЏ СЌР»РµРјРµРЅС‚ y
+(defun СЃРѕРґРµСЂР¶ (x y)(COND ((eql x NIL) NIL) ((eql y (CAR x)) T) (T (СЃРѕРґРµСЂР¶ (CDR x) y))))
 
-;выдает значение T если в списке x содержится хотя бы один из элементов списка y:
-(defun пересеч (x y)(COND ((eql y NIL) NIL) ((содерж x (CAR y)) T) (T (пересеч x (CDR y)))))
+;РІС‹РґР°РµС‚ Р·РЅР°С‡РµРЅРёРµ T РµСЃР»Рё РІ СЃРїРёСЃРєРµ x СЃРѕРґРµСЂР¶РёС‚СЃСЏ С…РѕС‚СЏ Р±С‹ РѕРґРёРЅ РёР· СЌР»РµРјРµРЅС‚РѕРІ СЃРїРёСЃРєР° y:
+(defun РїРµСЂРµСЃРµС‡ (x y)(COND ((eql y NIL) NIL) ((СЃРѕРґРµСЂР¶ x (CAR y)) T) (T (РїРµСЂРµСЃРµС‡ x (CDR y)))))
 
-;выдает значение T если все элементы списка x содержатся в списке y
-(defun включ (x y)(COND ((eql x NIL) T) ((содерж y (CAR x)) (включ (CDR x) y)) (T NIL)))
+;РІС‹РґР°РµС‚ Р·РЅР°С‡РµРЅРёРµ T РµСЃР»Рё РІСЃРµ СЌР»РµРјРµРЅС‚С‹ СЃРїРёСЃРєР° x СЃРѕРґРµСЂР¶Р°С‚СЃСЏ РІ СЃРїРёСЃРєРµ y
+(defun РІРєР»СЋС‡ (x y)(COND ((eql x NIL) T) ((СЃРѕРґРµСЂР¶ y (CAR x)) (РІРєР»СЋС‡ (CDR x) y)) (T NIL)))
 ;|#
 
-;выдает номер позиции внутреннего списка в списке x, первым элементом которого является y, 0  – если элемент отсутствует
-(defun располож1 (x y)(располож1+ x y 1))
-(defun располож1+ (x y n)(COND ((eql x NIL) 0) ((eql y (CAR (CAR x))) n) (T (располож1+ (CDR x) y (+ n 1)))))
+;РІС‹РґР°РµС‚ РЅРѕРјРµСЂ РїРѕР·РёС†РёРё РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ СЃРїРёСЃРєР° РІ СЃРїРёСЃРєРµ x, РїРµСЂРІС‹Рј СЌР»РµРјРµРЅС‚РѕРј РєРѕС‚РѕСЂРѕРіРѕ СЏРІР»СЏРµС‚СЃСЏ y, 0  вЂ“ РµСЃР»Рё СЌР»РµРјРµРЅС‚ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚
+(defun СЂР°СЃРїРѕР»РѕР¶1 (x y)(СЂР°СЃРїРѕР»РѕР¶1+ x y 1))
+(defun СЂР°СЃРїРѕР»РѕР¶1+ (x y n)(COND ((eql x NIL) 0) ((eql y (CAR (CAR x))) n) (T (СЂР°СЃРїРѕР»РѕР¶1+ (CDR x) y (+ n 1)))))
 
 ;#|
-(defun колич (x)(COND ((eql x NIL) 0) (T (+ 1 (колич (CDR x))))))
-(defun печать+2 (x w)(prin1 x))
-(defun печать+ (x w)(COND ((eql x NIL) NIL) (T (печать+ (CDR x) (печать+2 (CAR x) (prin1 " "))))))
-(defun перв (x)(COND ((eql x NIL) NIL) (T (CONS (CAR (CAR x)) (перв (CDR x))))))
-(defun функции (x)(функции+ x NIL 1 0 NIL))
-(defun функции+ (x v m n w)(COND ((eql x NIL) (LIST v w)) (T (COND ((eql n 0) (функции+ (CDR x) (добав v (CONS (CAR (CAR x)) (LIST (колич (элемент (CAR x) 2))))) (+ m 1) (располож1 v (CAR (CAR (CDR x)))) (CONS (CONS (QUOTE DEFUN) (CAR x)) w))) (T (LIST (LIST 0 (CAR (CAR x)) n m)))))))
-(defun правило (x y n)(COND ((eql n 0) (добав y (LIST (CAR x) (CDR x)))) (T (вставка1 y (CDR x) n))))
-(defun продукции (x)(продукции+ x NIL))
-(defun продукции+ (x y)(COND ((eql x NIL) y) (T (продукции+ (CDR x) (правило (CAR x) y (располож1 y (CAR (CAR x))))))))
-(defun проверка1 (x y)(проверка1+ (CDR x) y (располож1 y (CAR (CAR (CDR x))))))
-(defun проверка1+ (x y n)(COND ((eql x NIL) NIL) ((eql n 0) (LIST 1 (CAR (CAR x)))) (T (COND ((eql (колич (CDR (CAR x))) (CAR (CDR (элемент y n)))) (проверка1+ (CDR x) y (располож1 y (CAR (CAR (CDR x)))))) (T (LIST 2 (CAR (CAR x))))))))
-(defun проверка (x y)(проверка+ x y x (проверка1 (CAR x) y) 1))
-(defun проверка+ (x y u v m)(COND ((eql x NIL) u) ((eql v NIL) (проверка+ (CDR x) y u (проверка1 (CAR (CDR x)) y) (+ m 1))) (T (добав v m))))
-(defun ошибка (x)(ошибка+ (CAR x) (элемент x 2) (элемент x 3) (элемент x 4) (prin1 "База знаний не принята!")))
-(defun ошибка+ (k f m n w)(COND ((eql k 0) (печать (LIST (QUOTE Функция) f (QUOTE повторятся) (QUOTE на) m (QUOTE и) n (QUOTE позициях.)))) ((eql k 1) (печать (LIST (QUOTE Функция) f (QUOTE продукции) m (QUOTE не) (QUOTE задана.)))) ((eql k 2) (печать (LIST (QUOTE Функция) f (QUOTE в) (QUOTE продукции) m (QUOTE использует) (QUOTE неправильное) (QUOTE количество) (QUOTE аргументов.))))))
-(defun база (x y z)(база+ x (CAR (функции y)) (проверка (продукции z) (CAR (функции y))) (элемент (функции y) 2)))
-(defun база+ (x y z v) (COND ((eql v "Все функции добавлены.") (SET x (LIST y z))) ((eql (CAR y) 0) (ошибка y)) ((eql (CAR z) 1) (ошибка z)) ((eql (CAR z) 2) (ошибка z)) (T (база+ x y z (выполнить v)))))
+(defun РєРѕР»РёС‡ (x)(COND ((eql x NIL) 0) (T (+ 1 (РєРѕР»РёС‡ (CDR x))))))
+(defun РїРµС‡Р°С‚СЊ+2 (x w)(prin1 x))
+(defun РїРµС‡Р°С‚СЊ+ (x w)(COND ((eql x NIL) NIL) (T (РїРµС‡Р°С‚СЊ+ (CDR x) (РїРµС‡Р°С‚СЊ+2 (CAR x) (prin1 " "))))))
+(defun РїРµСЂРІ (x)(COND ((eql x NIL) NIL) (T (CONS (CAR (CAR x)) (РїРµСЂРІ (CDR x))))))
+(defun С„СѓРЅРєС†РёРё (x)(С„СѓРЅРєС†РёРё+ x NIL 1 0 NIL))
+(defun С„СѓРЅРєС†РёРё+ (x v m n w)(COND ((eql x NIL) (LIST v w)) (T (COND ((eql n 0) (С„СѓРЅРєС†РёРё+ (CDR x) (РґРѕР±Р°РІ v (CONS (CAR (CAR x)) (LIST (РєРѕР»РёС‡ (СЌР»РµРјРµРЅС‚ (CAR x) 2))))) (+ m 1) (СЂР°СЃРїРѕР»РѕР¶1 v (CAR (CAR (CDR x)))) (CONS (CONS (QUOTE DEFUN) (CAR x)) w))) (T (LIST (LIST 0 (CAR (CAR x)) n m)))))))
+(defun РїСЂР°РІРёР»Рѕ (x y n)(COND ((eql n 0) (РґРѕР±Р°РІ y (LIST (CAR x) (CDR x)))) (T (РІСЃС‚Р°РІРєР°1 y (CDR x) n))))
+(defun РїСЂРѕРґСѓРєС†РёРё (x)(РїСЂРѕРґСѓРєС†РёРё+ x NIL))
+(defun РїСЂРѕРґСѓРєС†РёРё+ (x y)(COND ((eql x NIL) y) (T (РїСЂРѕРґСѓРєС†РёРё+ (CDR x) (РїСЂР°РІРёР»Рѕ (CAR x) y (СЂР°СЃРїРѕР»РѕР¶1 y (CAR (CAR x))))))))
+(defun РїСЂРѕРІРµСЂРєР°1 (x y)(РїСЂРѕРІРµСЂРєР°1+ (CDR x) y (СЂР°СЃРїРѕР»РѕР¶1 y (CAR (CAR (CDR x))))))
+(defun РїСЂРѕРІРµСЂРєР°1+ (x y n)(COND ((eql x NIL) NIL) ((eql n 0) (LIST 1 (CAR (CAR x)))) (T (COND ((eql (РєРѕР»РёС‡ (CDR (CAR x))) (CAR (CDR (СЌР»РµРјРµРЅС‚ y n)))) (РїСЂРѕРІРµСЂРєР°1+ (CDR x) y (СЂР°СЃРїРѕР»РѕР¶1 y (CAR (CAR (CDR x)))))) (T (LIST 2 (CAR (CAR x))))))))
+(defun РїСЂРѕРІРµСЂРєР° (x y)(РїСЂРѕРІРµСЂРєР°+ x y x (РїСЂРѕРІРµСЂРєР°1 (CAR x) y) 1))
+(defun РїСЂРѕРІРµСЂРєР°+ (x y u v m)(COND ((eql x NIL) u) ((eql v NIL) (РїСЂРѕРІРµСЂРєР°+ (CDR x) y u (РїСЂРѕРІРµСЂРєР°1 (CAR (CDR x)) y) (+ m 1))) (T (РґРѕР±Р°РІ v m))))
+(defun РѕС€РёР±РєР° (x)(РѕС€РёР±РєР°+ (CAR x) (СЌР»РµРјРµРЅС‚ x 2) (СЌР»РµРјРµРЅС‚ x 3) (СЌР»РµРјРµРЅС‚ x 4) (prin1 "Р‘Р°Р·Р° Р·РЅР°РЅРёР№ РЅРµ РїСЂРёРЅСЏС‚Р°!")))
+(defun РѕС€РёР±РєР°+ (k f m n w)(COND ((eql k 0) (РїРµС‡Р°С‚СЊ (LIST (QUOTE Р¤СѓРЅРєС†РёСЏ) f (QUOTE РїРѕРІС‚РѕСЂСЏС‚СЃСЏ) (QUOTE РЅР°) m (QUOTE Рё) n (QUOTE РїРѕР·РёС†РёСЏС….)))) ((eql k 1) (РїРµС‡Р°С‚СЊ (LIST (QUOTE Р¤СѓРЅРєС†РёСЏ) f (QUOTE РїСЂРѕРґСѓРєС†РёРё) m (QUOTE РЅРµ) (QUOTE Р·Р°РґР°РЅР°.)))) ((eql k 2) (РїРµС‡Р°С‚СЊ (LIST (QUOTE Р¤СѓРЅРєС†РёСЏ) f (QUOTE РІ) (QUOTE РїСЂРѕРґСѓРєС†РёРё) m (QUOTE РёСЃРїРѕР»СЊР·СѓРµС‚) (QUOTE РЅРµРїСЂР°РІРёР»СЊРЅРѕРµ) (QUOTE РєРѕР»РёС‡РµСЃС‚РІРѕ) (QUOTE Р°СЂРіСѓРјРµРЅС‚РѕРІ.))))))
+(defun Р±Р°Р·Р° (x y z)(Р±Р°Р·Р°+ x (CAR (С„СѓРЅРєС†РёРё y)) (РїСЂРѕРІРµСЂРєР° (РїСЂРѕРґСѓРєС†РёРё z) (CAR (С„СѓРЅРєС†РёРё y))) (СЌР»РµРјРµРЅС‚ (С„СѓРЅРєС†РёРё y) 2)))
+(defun Р±Р°Р·Р°+ (x y z v) (COND ((eql v "Р’СЃРµ С„СѓРЅРєС†РёРё РґРѕР±Р°РІР»РµРЅС‹.") (SET x (LIST y z))) ((eql (CAR y) 0) (РѕС€РёР±РєР° y)) ((eql (CAR z) 1) (РѕС€РёР±РєР° z)) ((eql (CAR z) 2) (РѕС€РёР±РєР° z)) (T (Р±Р°Р·Р°+ x y z (РІС‹РїРѕР»РЅРёС‚СЊ v)))))
 
-;удаляет из списка  x подсписки, первые элементы которых встречаются в списке y
-(defun сокращ (x y) (COND ((eql x NIL) NIL) ((содерж y (CAR (CAR x))) (сокращ (CDR x) y)) (T (CONS (CAR x) (сокращ (CDR x) y)))))
-(defun добстр (x y k)(COND ((eql k 1) (добав x y)) (T (добав (обрез x) (добстр (послед x) y (- k 1))))))
-(defun уменьш (x)(COND ((eql x NIL) NIL) ((eql (CAR x) 0) (уменьш (CDR x))) (T (CONS (- (CAR x) 1) (CDR x)))))
-(defun формир (x y z)(формир+ x (CDR y) (CDR z) (LIST (CAR z)) (LIST (CAR (CAR y))) (CAR (CDR (CAR y))) 1 1))
-(defun формир+ (x y z v f n k i)(COND ((eql x NIL) f) ((eql i n) (формир+ x (CDR y) (CDR z) (CONS (CAR z) v) (добстр f (LIST (CAR (CAR y))) k) (CAR (CDR (CAR y))) (+ k 1) i)) ((eql (CAR v) 1) (формир+ (CDR x) y z (уменьш (уменьш v)) (добстр f (CAR x) k) n (- k 1) (+ i 1))) (T (формир+ (CDR x) y z (уменьш v) (добстр f (CAR x) k) n k (+ i 1)))))
+;СѓРґР°Р»СЏРµС‚ РёР· СЃРїРёСЃРєР°  x РїРѕРґСЃРїРёСЃРєРё, РїРµСЂРІС‹Рµ СЌР»РµРјРµРЅС‚С‹ РєРѕС‚РѕСЂС‹С… РІСЃС‚СЂРµС‡Р°СЋС‚СЃСЏ РІ СЃРїРёСЃРєРµ y
+(defun СЃРѕРєСЂР°С‰ (x y) (COND ((eql x NIL) NIL) ((СЃРѕРґРµСЂР¶ y (CAR (CAR x))) (СЃРѕРєСЂР°С‰ (CDR x) y)) (T (CONS (CAR x) (СЃРѕРєСЂР°С‰ (CDR x) y)))))
+(defun РґРѕР±СЃС‚СЂ (x y k)(COND ((eql k 1) (РґРѕР±Р°РІ x y)) (T (РґРѕР±Р°РІ (РѕР±СЂРµР· x) (РґРѕР±СЃС‚СЂ (РїРѕСЃР»РµРґ x) y (- k 1))))))
+(defun СѓРјРµРЅСЊС€ (x)(COND ((eql x NIL) NIL) ((eql (CAR x) 0) (СѓРјРµРЅСЊС€ (CDR x))) (T (CONS (- (CAR x) 1) (CDR x)))))
+(defun С„РѕСЂРјРёСЂ (x y z)(С„РѕСЂРјРёСЂ+ x (CDR y) (CDR z) (LIST (CAR z)) (LIST (CAR (CAR y))) (CAR (CDR (CAR y))) 1 1))
+(defun С„РѕСЂРјРёСЂ+ (x y z v f n k i)(COND ((eql x NIL) f) ((eql i n) (С„РѕСЂРјРёСЂ+ x (CDR y) (CDR z) (CONS (CAR z) v) (РґРѕР±СЃС‚СЂ f (LIST (CAR (CAR y))) k) (CAR (CDR (CAR y))) (+ k 1) i)) ((eql (CAR v) 1) (С„РѕСЂРјРёСЂ+ (CDR x) y z (СѓРјРµРЅСЊС€ (СѓРјРµРЅСЊС€ v)) (РґРѕР±СЃС‚СЂ f (CAR x) k) n (- k 1) (+ i 1))) (T (С„РѕСЂРјРёСЂ+ (CDR x) y z (СѓРјРµРЅСЊС€ v) (РґРѕР±СЃС‚СЂ f (CAR x) k) n k (+ i 1)))))
 ;|#
 
-;находит самый левый нетерминал в списке x, подлежащий замене, и выдает два числа – номер найденного нетерминала в списке x и номер его замены в списке y
-(defun коорд (x y)(коорд+ x y 1 (располож1 y (CAR x))))
-(defun коорд+ (x y n m)(COND ((eql x NIL) (QUOTE (0 0))) ((eql m 0) (коорд+ (CDR x) y (+ n 1) (располож1 y (CAR (CDR x))))) (T (добав (LIST n) m))))
+;РЅР°С…РѕРґРёС‚ СЃР°РјС‹Р№ Р»РµРІС‹Р№ РЅРµС‚РµСЂРјРёРЅР°Р» РІ СЃРїРёСЃРєРµ x, РїРѕРґР»РµР¶Р°С‰РёР№ Р·Р°РјРµРЅРµ, Рё РІС‹РґР°РµС‚ РґРІР° С‡РёСЃР»Р° вЂ“ РЅРѕРјРµСЂ РЅР°Р№РґРµРЅРЅРѕРіРѕ РЅРµС‚РµСЂРјРёРЅР°Р»Р° РІ СЃРїРёСЃРєРµ x Рё РЅРѕРјРµСЂ РµРіРѕ Р·Р°РјРµРЅС‹ РІ СЃРїРёСЃРєРµ y
+(defun РєРѕРѕСЂРґ (x y)(РєРѕРѕСЂРґ+ x y 1 (СЂР°СЃРїРѕР»РѕР¶1 y (CAR x))))
+(defun РєРѕРѕСЂРґ+ (x y n m)(COND ((eql x NIL) (QUOTE (0 0))) ((eql m 0) (РєРѕРѕСЂРґ+ (CDR x) y (+ n 1) (СЂР°СЃРїРѕР»РѕР¶1 y (CAR (CDR x))))) (T (РґРѕР±Р°РІ (LIST n) m))))
 
-;формирует из трех списков список дерева; x – сложный список выводов решения; y – сложный список использованных нетерминалов; z – сложный список использованных функций
-(defun состав (x y z)(COND ((eql (CDR x) NIL) (LIST (CONS (CAR x) (CONS (CAR y) (LIST (CAR z)))))) (T (CONS (CONS (CAR x) (CONS (CAR y) (LIST (CAR z)))) (состав (CDR x) (CDR y) (CDR z))))))
+;С„РѕСЂРјРёСЂСѓРµС‚ РёР· С‚СЂРµС… СЃРїРёСЃРєРѕРІ СЃРїРёСЃРѕРє РґРµСЂРµРІР°; x вЂ“ СЃР»РѕР¶РЅС‹Р№ СЃРїРёСЃРѕРє РІС‹РІРѕРґРѕРІ СЂРµС€РµРЅРёСЏ; y вЂ“ СЃР»РѕР¶РЅС‹Р№ СЃРїРёСЃРѕРє РёСЃРїРѕР»СЊР·РѕРІР°РЅРЅС‹С… РЅРµС‚РµСЂРјРёРЅР°Р»РѕРІ; z вЂ“ СЃР»РѕР¶РЅС‹Р№ СЃРїРёСЃРѕРє РёСЃРїРѕР»СЊР·РѕРІР°РЅРЅС‹С… С„СѓРЅРєС†РёР№
+(defun СЃРѕСЃС‚Р°РІ (x y z)(COND ((eql (CDR x) NIL) (LIST (CONS (CAR x) (CONS (CAR y) (LIST (CAR z)))))) (T (CONS (CONS (CAR x) (CONS (CAR y) (LIST (CAR z)))) (СЃРѕСЃС‚Р°РІ (CDR x) (CDR y) (CDR z))))))
 
-;производит замену левых нетерминалов; x – список одного узла дерева, состоящий из трех подсписков: подсписка вывода решения, подсписка использованных нетерминалов; подсписка использованных функций; y – список продукций
-(defun стрелка (x y)(стрелка+ x y (коорд (CAR x) y)))
-(defun стрелка+ (x y z)(стрелка+2 x y (CAR z) (CAR (CDR z))))
-(defun стрелка+2 (x y n m)(COND ((eql n 0) x) (T (стрелка+3 (CAR x) (элемент x 2) (элемент x 3) (элемент y m) n))))
-(defun стрелка+3 (x y z u n)(стрелка+4 (LIST (замена x (CDR (CAR (CDR u))) n)) (LIST (добав y (CAR u))) (COND ((eql z NIL) (LIST (LIST (LIST (CAR (CAR (CDR u))))))) (T (LIST (добав (добав1 z n) (LIST (CAR (CAR (CDR u)))))))) (CDR (CDR u)) x n))
-(defun стрелка+4 (x y z u v n)(COND ((eql u NIL) (состав x y z)) (T (стрелка+4 (добав x (замена v (CDR (CAR u)) n)) (дубл y) (добав z (добав (обрез (CAR z)) (LIST (CAR (CAR u))))) (CDR u) v n))))
+;РїСЂРѕРёР·РІРѕРґРёС‚ Р·Р°РјРµРЅСѓ Р»РµРІС‹С… РЅРµС‚РµСЂРјРёРЅР°Р»РѕРІ; x вЂ“ СЃРїРёСЃРѕРє РѕРґРЅРѕРіРѕ СѓР·Р»Р° РґРµСЂРµРІР°, СЃРѕСЃС‚РѕСЏС‰РёР№ РёР· С‚СЂРµС… РїРѕРґСЃРїРёСЃРєРѕРІ: РїРѕРґСЃРїРёСЃРєР° РІС‹РІРѕРґР° СЂРµС€РµРЅРёСЏ, РїРѕРґСЃРїРёСЃРєР° РёСЃРїРѕР»СЊР·РѕРІР°РЅРЅС‹С… РЅРµС‚РµСЂРјРёРЅР°Р»РѕРІ; РїРѕРґСЃРїРёСЃРєР° РёСЃРїРѕР»СЊР·РѕРІР°РЅРЅС‹С… С„СѓРЅРєС†РёР№; y вЂ“ СЃРїРёСЃРѕРє РїСЂРѕРґСѓРєС†РёР№
+(defun СЃС‚СЂРµР»РєР° (x y)(СЃС‚СЂРµР»РєР°+ x y (РєРѕРѕСЂРґ (CAR x) y)))
+(defun СЃС‚СЂРµР»РєР°+ (x y z)(СЃС‚СЂРµР»РєР°+2 x y (CAR z) (CAR (CDR z))))
+(defun СЃС‚СЂРµР»РєР°+2 (x y n m)(COND ((eql n 0) x) (T (СЃС‚СЂРµР»РєР°+3 (CAR x) (СЌР»РµРјРµРЅС‚ x 2) (СЌР»РµРјРµРЅС‚ x 3) (СЌР»РµРјРµРЅС‚ y m) n))))
+(defun СЃС‚СЂРµР»РєР°+3 (x y z u n)(СЃС‚СЂРµР»РєР°+4 (LIST (Р·Р°РјРµРЅР° x (CDR (CAR (CDR u))) n)) (LIST (РґРѕР±Р°РІ y (CAR u))) (COND ((eql z NIL) (LIST (LIST (LIST (CAR (CAR (CDR u))))))) (T (LIST (РґРѕР±Р°РІ (РґРѕР±Р°РІ1 z n) (LIST (CAR (CAR (CDR u)))))))) (CDR (CDR u)) x n))
+(defun СЃС‚СЂРµР»РєР°+4 (x y z u v n)(COND ((eql u NIL) (СЃРѕСЃС‚Р°РІ x y z)) (T (СЃС‚СЂРµР»РєР°+4 (РґРѕР±Р°РІ x (Р·Р°РјРµРЅР° v (CDR (CAR u)) n)) (РґСѓР±Р» y) (РґРѕР±Р°РІ z (РґРѕР±Р°РІ (РѕР±СЂРµР· (CAR z)) (LIST (CAR (CAR u))))) (CDR u) v n))))
 
-;производит замену левых нетерминалов; x – список дерева, состоящий из списков узлов; y – список продукций:
-(defun стрелки (x y)(COND ((eql (CDR x) NIL) (стрелка (CAR x) y)) (T (соед (стрелка (CAR x) y) (стрелки (CDR x) y)))))
+;РїСЂРѕРёР·РІРѕРґРёС‚ Р·Р°РјРµРЅСѓ Р»РµРІС‹С… РЅРµС‚РµСЂРјРёРЅР°Р»РѕРІ; x вЂ“ СЃРїРёСЃРѕРє РґРµСЂРµРІР°, СЃРѕСЃС‚РѕСЏС‰РёР№ РёР· СЃРїРёСЃРєРѕРІ СѓР·Р»РѕРІ; y вЂ“ СЃРїРёСЃРѕРє РїСЂРѕРґСѓРєС†РёР№:
+(defun СЃС‚СЂРµР»РєРё (x y)(COND ((eql (CDR x) NIL) (СЃС‚СЂРµР»РєР° (CAR x) y)) (T (СЃРѕРµРґ (СЃС‚СЂРµР»РєР° (CAR x) y) (СЃС‚СЂРµР»РєРё (CDR x) y)))))
 
-;удаляет из списка дерева x тупиковые узлы:
-(defun тупики (x)(COND ((eql x NIL) NIL) ((пересеч (CAR (CAR x)) (элемент (CAR x) 2)) (тупики (CDR x))) (T (CONS (CAR x) (тупики (CDR x))))))
+;СѓРґР°Р»СЏРµС‚ РёР· СЃРїРёСЃРєР° РґРµСЂРµРІР° x С‚СѓРїРёРєРѕРІС‹Рµ СѓР·Р»С‹:
+(defun С‚СѓРїРёРєРё (x)(COND ((eql x NIL) NIL) ((РїРµСЂРµСЃРµС‡ (CAR (CAR x)) (СЌР»РµРјРµРЅС‚ (CAR x) 2)) (С‚СѓРїРёРєРё (CDR x))) (T (CONS (CAR x) (С‚СѓРїРёРєРё (CDR x))))))
 
-;создает первоначальный список дерева x – аксиома; y – список продукций:
-(defun ствол (x y)(стрелка (CONS (LIST x) (CONS NIL (LIST NIL))) y))
+;СЃРѕР·РґР°РµС‚ РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹Р№ СЃРїРёСЃРѕРє РґРµСЂРµРІР° x вЂ“ Р°РєСЃРёРѕРјР°; y вЂ“ СЃРїРёСЃРѕРє РїСЂРѕРґСѓРєС†РёР№:
+(defun СЃС‚РІРѕР» (x y)(СЃС‚СЂРµР»РєР° (CONS (LIST x) (CONS NIL (LIST NIL))) y))
 
 ;#|
-;осуществляет поиск решения, в виде узла, состоящего только из терминальных символов; x – список дерева; y – список терминальных символов
-(defun поиск (x y)(COND ((eql x NIL) NIL) ((включ (CAR (CAR x)) y) (CAR x)) (T (поиск (CDR x) y))))
+;РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РїРѕРёСЃРє СЂРµС€РµРЅРёСЏ, РІ РІРёРґРµ СѓР·Р»Р°, СЃРѕСЃС‚РѕСЏС‰РµРіРѕ С‚РѕР»СЊРєРѕ РёР· С‚РµСЂРјРёРЅР°Р»СЊРЅС‹С… СЃРёРјРІРѕР»РѕРІ; x вЂ“ СЃРїРёСЃРѕРє РґРµСЂРµРІР°; y вЂ“ СЃРїРёСЃРѕРє С‚РµСЂРјРёРЅР°Р»СЊРЅС‹С… СЃРёРјРІРѕР»РѕРІ
+(defun РїРѕРёСЃРє (x y)(COND ((eql x NIL) NIL) ((РІРєР»СЋС‡ (CAR (CAR x)) y) (CAR x)) (T (РїРѕРёСЃРє (CDR x) y))))
 
-;строит список количества аргументов всех функций, входящих в суперпозицию; x – список задействованных функций; y – список всех функций
-(defun аргум (x y)(COND ((eql x NIL) NIL) (T (CONS (элемент (элемент y (располож1 y (CAR (CAR x)))) 2) (аргум (CDR x) y)))))
+;СЃС‚СЂРѕРёС‚ СЃРїРёСЃРѕРє РєРѕР»РёС‡РµСЃС‚РІР° Р°СЂРіСѓРјРµРЅС‚РѕРІ РІСЃРµС… С„СѓРЅРєС†РёР№, РІС…РѕРґСЏС‰РёС… РІ СЃСѓРїРµСЂРїРѕР·РёС†РёСЋ; x вЂ“ СЃРїРёСЃРѕРє Р·Р°РґРµР№СЃС‚РІРѕРІР°РЅРЅС‹С… С„СѓРЅРєС†РёР№; y вЂ“ СЃРїРёСЃРѕРє РІСЃРµС… С„СѓРЅРєС†РёР№
+(defun Р°СЂРіСѓРј (x y)(COND ((eql x NIL) NIL) (T (CONS (СЌР»РµРјРµРЅС‚ (СЌР»РµРјРµРЅС‚ y (СЂР°СЃРїРѕР»РѕР¶1 y (CAR (CAR x)))) 2) (Р°СЂРіСѓРј (CDR x) y)))))
 
-;осуществляет построение следующего уровня дерева перебора; x – список ствола дерева; y – список продукций; z – список использованных нетерминалов; u – список функций
-(defun уровень (x y z u)(уровень+ (тупики (стрелки x y)) y z u))
-(defun уровень+ (x y z u)(COND ((eql x NIL) (prin1 "Задача не имеет решения!")) (T (уровень+2 x y z (поиск x z) u))))
-(defun уровень+2 (x y z v u)(COND ((eql v NIL) (уровень x y z u)) (T (формир (CAR v) (элемент v 3) (аргум (элемент v 3) u)))))
+;РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РїРѕСЃС‚СЂРѕРµРЅРёРµ СЃР»РµРґСѓСЋС‰РµРіРѕ СѓСЂРѕРІРЅСЏ РґРµСЂРµРІР° РїРµСЂРµР±РѕСЂР°; x вЂ“ СЃРїРёСЃРѕРє СЃС‚РІРѕР»Р° РґРµСЂРµРІР°; y вЂ“ СЃРїРёСЃРѕРє РїСЂРѕРґСѓРєС†РёР№; z вЂ“ СЃРїРёСЃРѕРє РёСЃРїРѕР»СЊР·РѕРІР°РЅРЅС‹С… РЅРµС‚РµСЂРјРёРЅР°Р»РѕРІ; u вЂ“ СЃРїРёСЃРѕРє С„СѓРЅРєС†РёР№
+(defun СѓСЂРѕРІРµРЅСЊ (x y z u)(СѓСЂРѕРІРµРЅСЊ+ (С‚СѓРїРёРєРё (СЃС‚СЂРµР»РєРё x y)) y z u))
+(defun СѓСЂРѕРІРµРЅСЊ+ (x y z u)(COND ((eql x NIL) (prin1 "Р—Р°РґР°С‡Р° РЅРµ РёРјРµРµС‚ СЂРµС€РµРЅРёСЏ!")) (T (СѓСЂРѕРІРµРЅСЊ+2 x y z (РїРѕРёСЃРє x z) u))))
+(defun СѓСЂРѕРІРµРЅСЊ+2 (x y z v u)(COND ((eql v NIL) (СѓСЂРѕРІРµРЅСЊ x y z u)) (T (С„РѕСЂРјРёСЂ (CAR v) (СЌР»РµРјРµРЅС‚ v 3) (Р°СЂРіСѓРј (СЌР»РµРјРµРЅС‚ v 3) u)))))
 
-;выдает невыполненную суперпозицию; x – список символов; аксиомы и терминалов; y – название базы знаний
-;(Решение '(<Spd2> <Accl> <Time> <Spd1>) Механика) ответ (f1 <Spd1> <Accl> <Time>)
-(defun решение (x y)(решение+ (CAR x) (сокращ (элемент y 2) (CDR x)) (CDR x) (CAR y)))
-(defun решение+ (x y z u)(уровень+ (тупики (ствол x y)) y z u))
+;РІС‹РґР°РµС‚ РЅРµРІС‹РїРѕР»РЅРµРЅРЅСѓСЋ СЃСѓРїРµСЂРїРѕР·РёС†РёСЋ; x вЂ“ СЃРїРёСЃРѕРє СЃРёРјРІРѕР»РѕРІ; Р°РєСЃРёРѕРјС‹ Рё С‚РµСЂРјРёРЅР°Р»РѕРІ; y вЂ“ РЅР°Р·РІР°РЅРёРµ Р±Р°Р·С‹ Р·РЅР°РЅРёР№
+(defun СЂРµС€РµРЅРёРµ (x y)(СЂРµС€РµРЅРёРµ+ (CAR x) (СЃРѕРєСЂР°С‰ (СЌР»РµРјРµРЅС‚ y 2) (CDR x)) (CDR x) (CAR y)))
+(defun СЂРµС€РµРЅРёРµ+ (x y z u)(СѓСЂРѕРІРµРЅСЊ+ (С‚СѓРїРёРєРё (СЃС‚РІРѕР» x y)) y z u))
 
-;выдает числовой результат; x – список символов; аксиомы и терминалы в виде подсписков с числовыми значениями; y – ;название базы знаний
-(defun решение1 (x y)(EVAL (решение1+ (CONS (CAR x) (перв (CDR x))) y (ввести (CDR x)))))
-(defun решение1+ (x y z)(решение x y))
+;РІС‹РґР°РµС‚ С‡РёСЃР»РѕРІРѕР№ СЂРµР·СѓР»СЊС‚Р°С‚; x вЂ“ СЃРїРёСЃРѕРє СЃРёРјРІРѕР»РѕРІ; Р°РєСЃРёРѕРјС‹ Рё С‚РµСЂРјРёРЅР°Р»С‹ РІ РІРёРґРµ РїРѕРґСЃРїРёСЃРєРѕРІ СЃ С‡РёСЃР»РѕРІС‹РјРё Р·РЅР°С‡РµРЅРёСЏРјРё; y вЂ“ ;РЅР°Р·РІР°РЅРёРµ Р±Р°Р·С‹ Р·РЅР°РЅРёР№
+(defun СЂРµС€РµРЅРёРµ1 (x y)(EVAL (СЂРµС€РµРЅРёРµ1+ (CONS (CAR x) (РїРµСЂРІ (CDR x))) y (РІРІРµСЃС‚Рё (CDR x)))))
+(defun СЂРµС€РµРЅРёРµ1+ (x y z)(СЂРµС€РµРЅРёРµ x y))
 ;|#
 
-;#|
-(time(dotimes (i 1300)(print (Решение '(<FrFric> <Dist> <KinEn1> <KinEn2> <FrPull>) Механика))))
-;|#
 
-#|(load "reshM.lsp")
-;(Решение '(<FrFric> <Dist> <KinEn1> <KinEn2> <FrPull>) Механика)
-==> (f12 (f17 (f18 <FrPull> <Dist>) <KinEn2> <KinEn1>) <Dist>)
-вызываю решение (x y)
-получаю::
-x – список символов - аксиома и терминалы, y – БАЗА
-возвращает x - голова списка x аксиома, у - список правил из базы, находящийся на позиции 2 и удаляет из него подсписки первые элементы которых есть в списке терминалов, z - список терминалов, u - список функций ассоциированных с их кол-вом аргументов
-(сокращ '((
-(<Spd2> (f1 <Spd1> <Accl> <Time>) (f2 <Accl> <Dist> <Spd1>) (f11 <KinEn2> <Mass>)) 
-(<Spd1> (f3 <Spd2> <Accl> <Time>) (f4 <Dist> <Time> <Accl>) (f5 <Spd2> <Accl> <Dist>) (f11 <KinEn1> <Mass>)) 
-(<Dist> (f6 <Spd1> <Time> <Accl>) (f7 <Spd2> <Spd1> <Accl>) (f12 <OpPull> <FrPull>) (f12 <OpFric> <FrFric>)) 
-(<Time> (f8 <Spd2> <Spd1> <Accl>) (f9 <Spd1> <Accl> <Dist>)) 
-(<Accl> (f8 <Spd2> <Spd1> <Time>) (f10 <Dist> <Spd1> <Time>) (f7 <Spd2> <Spd1> <Dist>) (f8 <FrPull> <FrFric> <Mass>)) (<Mass> (f8 <FrPull> <FrFric> <Accl>) (f13 <FrFric> <CfFric> <Cfg>) (f14 <KinEn2> <Spd2>) (f14 <KinEn1> <Spd1>)) 
-(<FrPull> (f1 <FrFric> <Mass> <Accl>) (f12 <OpPull> <Dist>)) 
-(<FrFric> (f3 <FrPull> <Mass> <Accl>) (f15 <Cfg> <CfFric> <Mass>) (f12 <OpFric> <Dist>)) 
-(<CfFric> (f13 <FrFric> <Mass> <Cfg>)) 
-(<KinEn2> (f16 <Mass> <Spd2>) (f17 <OpPull> <OpFric> <KinEn1>)) 
-(<KinEn1> (f16 <Mass> <Spd1>) (f17 <KinEn2> <OpPull> <OpFric>)) 
-(<OpPull> (f18 <FrPull> <Dist>) (f17 <KinEn2> <KinEn1> <OpFric>)) 
-(<OpFric> (f18 <FrFric> <Dist>) (f17 <OpPull> <KinEn2> <KinEn1>))
-)) '(<Dist> <KinEn1> <KinEn2> <FrPull>))
-получаю::
-((<Spd2> (f1 <Spd1> <Accl> <Time>) (f2 <Accl> <Dist> <Spd1>) (f11 <KinEn2> <Mass>)) 
-(<Spd1> (f3 <Spd2> <Accl> <Time>) (f4 <Dist> <Time> <Accl>) (f5 <Spd2> <Accl> <Dist>) (f11 <KinEn1> <Mass>)) 
-(<Time> (f8 <Spd2> <Spd1> <Accl>) (f9 <Spd1> <Accl> <Dist>)) 
-(<Accl> (f8 <Spd2> <Spd1> <Time>) (f10 <Dist> <Spd1> <Time>) (f7 <Spd2> <Spd1> <Dist>) (f8 <FrPull> <FrFric> <Mass>)) (<Mass> (f8 <FrPull> <FrFric> <Accl>) (f13 <FrFric> <CfFric> <Cfg>) (f14 <KinEn2> <Spd2>) (f14 <KinEn1> <Spd1>)) 
-(<FrFric> (f3 <FrPull> <Mass> <Accl>) (f15 <Cfg> <CfFric> <Mass>) (f12 <OpFric> <Dist>)) 
-(<CfFric> (f13 <FrFric> <Mass> <Cfg>)) 
-(<OpPull> (f18 <FrPull> <Dist>) (f17 <KinEn2> <KinEn1> <OpFric>)) 
-(<OpFric> (f18 <FrFric> <Dist>) (f17 <OpPull> <KinEn2> <KinEn1>))
-)
-вызываю решение+ (x y z u)
-строю (ствол x y)
-(ствол '<FrFric> '((<Spd2> (f1 <Spd1> <Accl> <Time>) (f2 <Accl> <Dist> <Spd1>) (f11 <KinEn2> <Mass>)) 
-(<Spd1> (f3 <Spd2> <Accl> <Time>) (f4 <Dist> <Time> <Accl>) (f5 <Spd2> <Accl> <Dist>) (f11 <KinEn1> <Mass>)) 
-(<Time> (f8 <Spd2> <Spd1> <Accl>) (f9 <Spd1> <Accl> <Dist>)) 
-(<Accl> (f8 <Spd2> <Spd1> <Time>) (f10 <Dist> <Spd1> <Time>) (f7 <Spd2> <Spd1> <Dist>) (f8 <FrPull> <FrFric> <Mass>)) (<Mass> (f8 <FrPull> <FrFric> <Accl>) (f13 <FrFric> <CfFric> <Cfg>) (f14 <KinEn2> <Spd2>) (f14 <KinEn1> <Spd1>)) 
-(<FrFric> (f3 <FrPull> <Mass> <Accl>) (f15 <Cfg> <CfFric> <Mass>) (f12 <OpFric> <Dist>)) 
-(<CfFric> (f13 <FrFric> <Mass> <Cfg>)) 
-(<OpPull> (f18 <FrPull> <Dist>) (f17 <KinEn2> <KinEn1> <OpFric>)) 
-(<OpFric> (f18 <FrFric> <Dist>) (f17 <OpPull> <KinEn2> <KinEn1>))
-) )
-получаю::
-(((<FrPull> <Mass> <Accl>) (<FrFric>) ((f3))) ((<Cfg> <CfFric> <Mass>) (<FrFric>) ((f15))) ((<OpFric> <Dist>) (<FrFric>) ((f12))))
-убираю тупики:
-(тупики '(((<FrPull> <Mass> <Accl>) (<FrFric>) ((f3))) ((<Cfg> <CfFric> <Mass>) (<FrFric>) ((f15))) ((<OpFric> <Dist>) (<FrFric>) ((f12)))) )
-получаю::
-(((<FrPull> <Mass> <Accl>) (<FrFric>) ((f3))) ((<Cfg> <CfFric> <Mass>) (<FrFric>) ((f15))) ((<OpFric> <Dist>) (<FrFric>) ((f12))))
-
-строю следующий уровень+ дерева перебора::
-(defun уровень+ (x y z u)( LAMBDA (x y z u) (COND ((eql x NIL) (prin1 "Задача не имеет решения!")) (T (уровень+2 x y z (поиск x z) u)))) )
-x – список ствола дерева; y – список продукций; z – список использованных терминалов; u – список функций
-(уровень+ '(((<FrPull> <Mass> <Accl>) (<FrFric>) ((f3))) ((<Cfg> <CfFric> <Mass>) (<FrFric>) ((f15))) ((<OpFric> <Dist>) (<FrFric>) ((f12)))) '((<Spd2> (f1 <Spd1> <Accl> <Time>) (f2 <Accl> <Dist> <Spd1>) (f11 <KinEn2> <Mass>)) 
-(<Spd1> (f3 <Spd2> <Accl> <Time>) (f4 <Dist> <Time> <Accl>) (f5 <Spd2> <Accl> <Dist>) (f11 <KinEn1> <Mass>)) 
-(<Time> (f8 <Spd2> <Spd1> <Accl>) (f9 <Spd1> <Accl> <Dist>)) 
-(<Accl> (f8 <Spd2> <Spd1> <Time>) (f10 <Dist> <Spd1> <Time>) (f7 <Spd2> <Spd1> <Dist>) (f8 <FrPull> <FrFric> <Mass>)) (<Mass> (f8 <FrPull> <FrFric> <Accl>) (f13 <FrFric> <CfFric> <Cfg>) (f14 <KinEn2> <Spd2>) (f14 <KinEn1> <Spd1>)) 
-(<FrFric> (f3 <FrPull> <Mass> <Accl>) (f15 <Cfg> <CfFric> <Mass>) (f12 <OpFric> <Dist>)) 
-(<CfFric> (f13 <FrFric> <Mass> <Cfg>)) 
-(<OpPull> (f18 <FrPull> <Dist>) (f17 <KinEn2> <KinEn1> <OpFric>)) 
-(<OpFric> (f18 <FrFric> <Dist>) (f17 <OpPull> <KinEn2> <KinEn1>))
-) '(<Dist> <KinEn1> <KinEn2> <FrPull>) '((f1 3) (f2 3) (f3 3) (f4 3) (f5 3) (f6 3) (f7 3) (f8 3) (f9 3) (f10 3) (f11 2) (f12 2) (f13 3) (f14 2) (f15 3) (f16 2) (f17 3) (f18 2)))
-получаю::
-==> (f12 (f17 (f18 <FrPull> <Dist>) <KinEn2> <KinEn1>) <Dist>)
---------
-;осуществляет поиск решения, в виде узла, состоящего только из терминальных символов; x – список дерева; y – список терминальных символов
-(defun поиск (x y)( LAMBDA (x y) (COND ((eql x NIL) NIL) ((включ (CAR (CAR x)) y) (CAR x)) (T (поиск (CDR x) y)))) )
---------
-Делаю поиск::
-(поиск '(((<FrPull> <Mass> <Accl>) (<FrFric>) ((f3))) ((<Cfg> <CfFric> <Mass>) (<FrFric>) ((f15))) ((<OpFric> <Dist>) (<FrFric>) ((f12)))) '(<Dist> <KinEn1> <KinEn2> <FrPull>))
-получаю::
-NIL
----------
-;выдает значение True если в списке x содержится элемент y
-(defun содерж (x y)( LAMBDA (x y) (COND ((eql x NIL) NIL) ((eql y (CAR x)) T) (T (содерж (CDR x) y)))) )
-;выдает значение T если все элементы списка x содержатся в списке y
-(defun включ (x y)( LAMBDA (x y) (COND ((eql x NIL) T) ((содерж y (CAR x)) (включ (CDR x) y)) (T NIL))) )
----------
------
-(defun уровень+2 (x y z v u)( LAMBDA (x y z v u) (COND ((eql v NIL) (уровень x y z u)) (T (формир (CAR v) (элемент v 3) (аргум (элемент v 3) u))))) )
---------
-вызываю уровень+2::
-(уровень+2 '(((<FrPull> <Mass> <Accl>) (<FrFric>) ((f3))) ((<Cfg> <CfFric> <Mass>) (<FrFric>) ((f15))) ((<OpFric> <Dist>) (<FrFric>) ((f12)))) '((<Spd2> (f1 <Spd1> <Accl> <Time>) (f2 <Accl> <Dist> <Spd1>) (f11 <KinEn2> <Mass>)) 
-(<Spd1> (f3 <Spd2> <Accl> <Time>) (f4 <Dist> <Time> <Accl>) (f5 <Spd2> <Accl> <Dist>) (f11 <KinEn1> <Mass>)) 
-(<Time> (f8 <Spd2> <Spd1> <Accl>) (f9 <Spd1> <Accl> <Dist>)) 
-(<Accl> (f8 <Spd2> <Spd1> <Time>) (f10 <Dist> <Spd1> <Time>) (f7 <Spd2> <Spd1> <Dist>) (f8 <FrPull> <FrFric> <Mass>)) (<Mass> (f8 <FrPull> <FrFric> <Accl>) (f13 <FrFric> <CfFric> <Cfg>) (f14 <KinEn2> <Spd2>) (f14 <KinEn1> <Spd1>)) 
-(<FrFric> (f3 <FrPull> <Mass> <Accl>) (f15 <Cfg> <CfFric> <Mass>) (f12 <OpFric> <Dist>)) 
-(<CfFric> (f13 <FrFric> <Mass> <Cfg>)) 
-(<OpPull> (f18 <FrPull> <Dist>) (f17 <KinEn2> <KinEn1> <OpFric>)) 
-(<OpFric> (f18 <FrFric> <Dist>) (f17 <OpPull> <KinEn2> <KinEn1>))
-) '(<Dist> <KinEn1> <KinEn2> <FrPull>) NIL '((f1 3) (f2 3) (f3 3) (f4 3) (f5 3) (f6 3) (f7 3) (f8 3) (f9 3) (f10 3) (f11 2) (f12 2) (f13 3) (f14 2) (f15 3) (f16 2) (f17 3) (f18 2)))
-получаю::
-==> (f12 (f17 (f18 <FrPull> <Dist>) <KinEn2> <KinEn1>) <Dist>)
-------------
-;осуществляет построение следующего уровня дерева перебора; x – список ствола дерева; y – список продукций; z – список использованных нетерминалов; u – список функций
-(defun уровень (x y z u)( LAMBDA (x y z u) (уровень+ (тупики (стрелки x y)) y z u)) )
-------------
-цыкл! замена нетерминалов в цикле! условие пока не найдется цепочка из из всех терминалов!
-вызываю уровень (x y z u)::
-(стрелки '(((<FrPull> <Mass> <Accl>) (<FrFric>) ((f3))) ((<Cfg> <CfFric> <Mass>) (<FrFric>) ((f15))) ((<OpFric> <Dist>) (<FrFric>) ((f12)))) '((<Spd2> (f1 <Spd1> <Accl> <Time>) (f2 <Accl> <Dist> <Spd1>) (f11 <KinEn2> <Mass>)) 
-(<Spd1> (f3 <Spd2> <Accl> <Time>) (f4 <Dist> <Time> <Accl>) (f5 <Spd2> <Accl> <Dist>) (f11 <KinEn1> <Mass>)) 
-(<Time> (f8 <Spd2> <Spd1> <Accl>) (f9 <Spd1> <Accl> <Dist>)) 
-(<Accl> (f8 <Spd2> <Spd1> <Time>) (f10 <Dist> <Spd1> <Time>) (f7 <Spd2> <Spd1> <Dist>) (f8 <FrPull> <FrFric> <Mass>)) (<Mass> (f8 <FrPull> <FrFric> <Accl>) (f13 <FrFric> <CfFric> <Cfg>) (f14 <KinEn2> <Spd2>) (f14 <KinEn1> <Spd1>)) 
-(<FrFric> (f3 <FrPull> <Mass> <Accl>) (f15 <Cfg> <CfFric> <Mass>) (f12 <OpFric> <Dist>)) 
-(<CfFric> (f13 <FrFric> <Mass> <Cfg>)) 
-(<OpPull> (f18 <FrPull> <Dist>) (f17 <KinEn2> <KinEn1> <OpFric>)) 
-(<OpFric> (f18 <FrFric> <Dist>) (f17 <OpPull> <KinEn2> <KinEn1>))
-))
-получаю::
-(((<FrPull> <FrPull> <FrFric> <Accl> <Accl>) (<FrFric> <Mass>) ((f3 2) (f8))) 
-((<FrPull> <FrFric> <CfFric> <Cfg> <Accl>) (<FrFric> <Mass>) ((f3 2) (f13))) 
-((<FrPull> <KinEn2> <Spd2> <Accl>) (<FrFric> <Mass>) ((f3 2) (f14))) 
-((<FrPull> <KinEn1> <Spd1> <Accl>) (<FrFric> <Mass>) ((f3 2) (f14))) 
-((<Cfg> <FrFric> <Mass> <Cfg> <Mass>) (<FrFric> <CfFric>) ((f15 2) (f13))) 
-((<FrFric> <Dist> <Dist>) (<FrFric> <OpFric>) ((f12 1) (f18))) 
-((<OpPull> <KinEn2> <KinEn1> <Dist>) (<FrFric> <OpFric>) ((f12 1) (f17)))
-)
-убираю тупики::
-(тупики '(((<FrPull> <FrPull> <FrFric> <Accl> <Accl>) (<FrFric> <Mass>) ((f3 2) (f8))) ((<FrPull> <FrFric> <CfFric> <Cfg> <Accl>) (<FrFric> <Mass>) ((f3 2) (f13))) ((<FrPull> <KinEn2> <Spd2> <Accl>) (<FrFric> <Mass>) ((f3 2) (f14))) ((<FrPull> <KinEn1> <Spd1> <Accl>) (<FrFric> <Mass>) ((f3 2) (f14))) ((<Cfg> <FrFric> <Mass> <Cfg> <Mass>) (<FrFric> <CfFric>) ((f15 2) (f13))) ((<FrFric> <Dist> <Dist>) (<FrFric> <OpFric>) ((f12 1) (f18))) ((<OpPull> <KinEn2> <KinEn1> <Dist>) (<FrFric> <OpFric>) ((f12 1) (f17)))) )
-получаю: (типа происходит постоянная замена нетерминалов в цикле и а после проверка наличие аксиомы и отсекание!)
-(((<FrPull> <KinEn2> <Spd2> <Accl>) (<FrFric> <Mass>) ((f3 2) (f14))) 
-((<FrPull> <KinEn1> <Spd1> <Accl>) (<FrFric> <Mass>) ((f3 2) (f14))) 
-((<OpPull> <KinEn2> <KinEn1> <Dist>) (<FrFric> <OpFric>) ((f12 1) (f17)))
-)
-
-след итерация уровень -> поиск NIL -> стрелки -> 
-(((<FrPull> <KinEn2> <Spd1> <Accl> <Time> <Accl>) (<FrFric> <Mass> <Spd2>) ((f3 2) (f14 3) (f1))) 
-((<FrPull> <KinEn2> <Accl> <Dist> <Spd1> <Accl>) (<FrFric> <Mass> <Spd2>) ((f3 2) (f14 3) (f2))) 
-((<FrPull> <KinEn2> <KinEn2> <Mass> <Accl>) (<FrFric> <Mass> <Spd2>) ((f3 2) (f14 3) (f11))) 
-((<FrPull> <KinEn1> <Spd2> <Accl> <Time> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f3))) 
-((<FrPull> <KinEn1> <Dist> <Time> <Accl> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f4))) 
-((<FrPull> <KinEn1> <Spd2> <Accl> <Dist> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f5))) 
-((<FrPull> <KinEn1> <KinEn1> <Mass> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f11))) 
-((<FrPull> <Dist> <KinEn2> <KinEn1> <Dist>) (<FrFric> <OpFric> <OpPull>) ((f12 1) (f17 1) (f18))) 
-((<KinEn2> <KinEn1> <OpFric> <KinEn2> <KinEn1> <Dist>) (<FrFric> <OpFric> <OpPull>) ((f12 1) (f17 1) (f17)))
-)
--> тупики::
-(тупики '(((<FrPull> <KinEn2> <Spd1> <Accl> <Time> <Accl>) (<FrFric> <Mass> <Spd2>) ((f3 2) (f14 3) (f1))) 
-((<FrPull> <KinEn2> <Accl> <Dist> <Spd1> <Accl>) (<FrFric> <Mass> <Spd2>) ((f3 2) (f14 3) (f2))) 
-((<FrPull> <KinEn2> <KinEn2> <Mass> <Accl>) (<FrFric> <Mass> <Spd2>) ((f3 2) (f14 3) (f11))) 
-((<FrPull> <KinEn1> <Spd2> <Accl> <Time> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f3))) 
-((<FrPull> <KinEn1> <Dist> <Time> <Accl> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f4))) 
-((<FrPull> <KinEn1> <Spd2> <Accl> <Dist> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f5))) 
-((<FrPull> <KinEn1> <KinEn1> <Mass> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f11))) 
-((<FrPull> <Dist> <KinEn2> <KinEn1> <Dist>) (<FrFric> <OpFric> <OpPull>) ((f12 1) (f17 1) (f18))) 
-((<KinEn2> <KinEn1> <OpFric> <KinEn2> <KinEn1> <Dist>) (<FrFric> <OpFric> <OpPull>) ((f12 1) (f17 1) (f17)))
-) )
-получаю::
-(((<FrPull> <KinEn2> <Spd1> <Accl> <Time> <Accl>) (<FrFric> <Mass> <Spd2>) ((f3 2) (f14 3) (f1))) 
-((<FrPull> <KinEn2> <Accl> <Dist> <Spd1> <Accl>) (<FrFric> <Mass> <Spd2>) ((f3 2) (f14 3) (f2))) 
-((<FrPull> <KinEn1> <Spd2> <Accl> <Time> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f3))) 
-((<FrPull> <KinEn1> <Dist> <Time> <Accl> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f4))) 
-((<FrPull> <KinEn1> <Spd2> <Accl> <Dist> <Accl>) (<FrFric> <Mass> <Spd1>) ((f3 2) (f14 3) (f5))) 
-((<FrPull> <Dist> <KinEn2> <KinEn1> <Dist>) (<FrFric> <OpFric> <OpPull>) ((f12 1) (f17 1) (f18)))
-)
-
-след итерация уровень -> поиск T
-#выход из цикла! и формир суперпозиции!
---------------
-;(формир (CAR v) (элемент v 3) (аргум (элемент v 3) u))
---------------
-формир
-аргум
-
-
-
-
-
-
-
-
-
-
-
-;(Решение '(<FrFric> <Dist> <KinEn1> <KinEn2> <FrPull>) Механика)
-
-1) (car x) - возвращает первый элемент списка голову
-2) (cdr x) - возвр остальные элементы списка хвост (nth 0 '(a b c)) => a
-3) (cons x) - возвр новый список с первым аргументом в его начале (cons 'a '(bc)) => (a b c)
-4) (list x) - возвр новый список (list 'a 'b) => (a b) append склеить несколько списков в один
-5) (cond x y … ) - (cond ((> a 20) (format t "~% a is greater than 20")) (t (format t "~% value of a is ~d " a)))
-6) (eql x y) - (cond ((eql a 20) (выражение) )
-7) (+ x y) -
-8) (- x y) - 
-1) T - true
-2) nil - false
-
-типы данных::
-number -> {real -> {rational -> {ratio, integer -> {bignum, fixnum -> bit}}, float -> {long-float, double-float}}
-single-float short-float
-atom cons list null nill t
-function compiled-function
-array simple-array hash-table 
-character standard-char symbol string simple-string [string-char]
-signed-byte	unsigned-byte 
-vector simple-vector bit-vector simple-bit-vector
-complex keyword stream readtable package pathname random-state [common] sequence
-(print (type-of x))
-(typep 1 'fixnum)
-
-(declare (type fixnum a b))
-(declare (fixnum a b))
-(declaim (optimize(speed 3)(compilation-speed 0)(safety 0)(debug 0)))
-
-return-from для возврата любого значения из функции
-
-(print 'i=)
-(printline i)
-(write (atom 'abcd))
-(write (list 1 2)) => (1 2)
-(write (list 'a 'b)) => (a b)
-(format t "x = ~2d y = ~2d ~%" x y)
-(princ "Enter Number : ")
-(setq n1 (read))
-https://www.tutorialspoint.com/lisp/lisp_input_output.htm
-common lisp SYMBOL equal
-https://www.cs.cmu.edu/Groups/AI/html/cltl/clm/node74.html
-Процессорный цикл - это время выполнения элементарной машинной инструкции
-Тактовая частота измеряется в циклах в секунду, а один цикл в секунду известен как 1 герц.
-Один цикл в секунду составляет 1 Герц
-3GHz это 3.000.000.000 циклов в секунду!
-Запустить и замерить время решения ста задач или тысячи!
-|#
 #|
-(ствол '(<Spd2>) '((<Spd2> (f1 <Spd1> <Accl> <Time>) (f2 <Accl> <Dist> <Spd1>) (f11 <KinEn2> <Mass>)) (<Dist> (f6 <Spd1> <Time> <Accl>) (f7 <Spd2> <Spd1> <Accl>) (f12 <OpPull> <FrPull>) (f12 <OpFric> <FrFric>)) (<Mass> (f8 <FrPull> <FrFric> <Accl>) (f13 <FrFric> <CfFric> <Cfg>) (f14 <KinEn2> <Spd2>) (f14 <KinEn1> <Spd1>)) (<FrPull> (f1 <FrFric> <Mass> <Accl>) (f12 <OpPull> <Dist>)) (<FrFric> (f3 <FrPull> <Mass> <Accl>) (f15 <Cfg> <CfFric> <Mass>) (f12 <OpFric> <Dist>)) (<CfFric> (f13 <FrFric> <Mass> <Cfg>)) (<KinEn2> (f16 <Mass> <Spd2>) (f17 <OpPull> <OpFric> <KinEn1>)) (<KinEn1> (f16 <Mass> <Spd1>) (f17 <KinEn2> <OpPull> <OpFric>)) (<OpPull> (f18 <FrPull> <Dist>) (f17 <KinEn2> <KinEn1> <OpFric>)) (<OpFric> (f18 <FrFric> <Dist>) (f17 <OpPull> <KinEn2> <KinEn1>))) )
+Р РµС€РёРј СЃР»РµРґСѓСЋС‰СѓСЋ Р·Р°РґР°С‡Сѓ РёР· РѕР±Р»Р°СЃС‚Рё РјРµС…Р°РЅРёРєРё: 
+"РџСЂРё Р°РІР°СЂРёР№РЅРѕРј С‚РѕСЂРјРѕР¶РµРЅРёРё Р°РІС‚РѕРјРѕР±РёР»СЊ, РґРІРёР¶СѓС‰РёР№СЃСЏ СЃРѕ СЃРєРѕСЂРѕСЃС‚СЊСЋ 72 РєРј/С‡, РѕСЃС‚Р°РЅРѕРІРёР»СЃСЏ С‡РµСЂРµР· 5 СЃ. РќР°Р№С‚Рё С‚РѕСЂРјРѕР·РЅРѕР№ РїСѓС‚СЊ." 
 |#
+;(Р РµС€РµРЅРёРµ '(<Dist> <Spd1> <Time> <Spd2>) РњРµС…Р°РЅРёРєР°) ;СЃСѓРїРµСЂРїРѕР·РёС†РёСЏ: (f6 <Spd1> <Time> (f8 <Spd2> <Spd1> <Time>))
+;(Р РµС€РµРЅРёРµ1 '(<Dist> (<Spd1> 20) (<Time> 5) (<Spd2> 0)) РњРµС…Р°РЅРёРєР°) ;С‡РёСЃР»РµРЅРЅС‹Р№ РѕС‚РІРµС‚: 50.0
+
+(print (Р РµС€РµРЅРёРµ1 '(<Dist> (<Spd1> 20) (<Time> 5) (<Spd2> 0)) РњРµС…Р°РЅРёРєР°)) 
+
+
+; ******** РљРћРќР•Р¦ РђР›Р“РћР РРўРњРђ ******** ;
+
+
+;РћС†РµРЅРєР° РІСЂРµРјРµРЅРЅРѕР№ СЃР»РѕР¶РЅРѕСЃС‚Рё:
+;РђР»РіРѕСЂРёС‚Рј СЏРІР»СЏРµС‚СЃСЏ NP-С‚СЂСѓРґРЅС‹Рј Рё РёРјРµРµС‚ РІС‹СЃРѕРєСѓСЋ РЅРµРґРµС‚РµСЂРјРёРЅРёСЂРѕРІР°РЅРЅСѓСЋ РѕС†РµРЅРєСѓ РІСЂРµРјРµРЅРЅРѕР№ СЃР»РѕР¶РЅРѕСЃС‚Рё СЂР°РІРЅСѓСЋ 
+;РІ Р»СѓС‡С€РµРј СЃР»СѓС‡Р°Рµ: O(n^k), РіРґРµ k >= 4 - РІС‹СЃРѕРєРѕРїРѕР»РёРЅРѕРјРёР°Р»СЊРЅР°СЏ СЃР»РѕР¶РЅРѕСЃС‚СЊ (РїСЂРё СЂРµС€РµРЅРёРё Р±РѕР»РµРµ РїСЂРѕСЃС‚С‹С… Р·Р°РґР°С‡) Р° 
+;РІ С…СѓРґС€РµРј СЃР»СѓС‡Р°Рµ: O(2^(n^k)) - СЌРєСЃРїРѕРЅРµРЅС†РёР°Р»СЊРЅР°СЏ СЃР»РѕР¶РЅРѕСЃС‚СЊ (РїСЂРё СЂРµС€РµРЅРёРё Р±РѕР»РµРµ СЃР»РѕР¶РЅС‹С… Р·Р°РґР°С‡ РІСЃС‚СЂРѕРµРЅРЅС‹РјРё С‡РёСЃР»РµРЅРЅС‹РјРё РјРµС‚РѕРґР°РјРё).
+
+
+;#| СЌС‚Рѕ РєРѕРґ РґР»СЏ РїСЂРѕРІРµСЂРєРё РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚Рё
+;(time(dotimes (i 1300)(print (Р РµС€РµРЅРёРµ '(<FrFric> <Dist> <KinEn1> <KinEn2> <FrPull>) РњРµС…Р°РЅРёРєР°))))
+;|#
